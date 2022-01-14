@@ -22,8 +22,8 @@ const getWalletBalance = async () => {
 		const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
 		const myWallet = await Keypair.fromSecretKey(secretKey);
 		const walletBalance = await connection.getBalance(new PublicKey(myWallet.publicKey));
-		console.log('=> For wallet address ${publicKey}');
-		console.log('  Wallet balance: ${parseInt(walletBalance)/LAMPORTS_PER_SOL} SOL');
+		console.log(`=> For wallet address ${publicKey}`);
+		console.log(`  Wallet balance: ${parseInt(walletBalance) / LAMPORTS_PER_SOL} SOL`);
 	} catch (err) {
 		console.log(err);
 	}
@@ -45,5 +45,11 @@ const airDropSol = async () => {
 	}
 };
 
-
+//Step5 run everything
+const driverFunction = async () => {
+	await getWalletBalance();
+	await airDropSol();
+	await getWalletBalance();
+}
+driverFunction();
 
